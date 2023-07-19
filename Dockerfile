@@ -37,5 +37,5 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ###############################################################################
 FROM python-poetry-base AS python-poetry
 RUN apt-get update \
-  && apt-get install --no-install-recommends --assume-yes git
+  && apt-get install --no-install-recommends --assume-yes git ssh-client
 COPY --from=python-poetry-builder $POETRY_HOME $POETRY_HOME
