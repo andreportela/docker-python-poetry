@@ -41,6 +41,7 @@ jobs:
         make build-version \
           POETRY_VERSION=${{ matrix.poetry_version }} \
           PYTHON_IMAGE_TAG=${{ matrix.python_image_tag }}
+
     - name: Login to DockerHub
       run: echo -n $DOCKER_ACCESS_TOKEN | docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME --password-stdin 
     - name: Push Image to DockerHub
