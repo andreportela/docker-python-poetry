@@ -36,6 +36,17 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # POETRY RUNTIME IMAGE - Copies the poetry installation into a smaller image
 ###############################################################################
 FROM python-poetry-base AS python-poetry
+
+ARG GRADLE_VERSION="8.10"
+
+ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
+ENV PATH=$GRADLE_HOME/bin:$PATH
+
 RUN apt-get update \
-  && apt-get install --no-install-recommends --assume-yes git ssh-client
+  && apt-get install --no-install-recommends --assume-yes git ssh-client default-jdk curl zip unzip \
+  && curl -sSL -o /tmp/gradle-${GRADLE_VERSION}-bin.zip https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+  && unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip \
+  && rm /tmp/gradle-${GRADLE_VERSION}-bin.zip \
+  && apt-get purge --assume-yes zip unzip
+
 COPY --from=python-poetry-builder $POETRY_HOME $POETRY_HOME
