@@ -36,6 +36,14 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # POETRY RUNTIME IMAGE - Copies the poetry installation into a smaller image
 ###############################################################################
 FROM python-poetry-base AS python-poetry
+
+ENV JAVA_8_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_21_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+# Sets JDK 8 as default
+ENV JAVA_HOME=$JAVA_8_HOME 
+ENV PATH=$JAVA_HOME/bin:$PATH
+
 RUN apt-get update \
-  && apt-get install --no-install-recommends --assume-yes git ssh-client
+  && apt-get install --no-install-recommends --assume-yes git ssh-client openjdk-8-jdk openjdk-21-jdk 
+
 COPY --from=python-poetry-builder $POETRY_HOME $POETRY_HOME
