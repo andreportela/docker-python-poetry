@@ -44,9 +44,8 @@ RUN apt-get update \
   && apt-get install --no-install-recommends --assume-yes curl
 
 RUN curl -sSL -o ./openlogic-openjdk-8u422-b05-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gz \
-  && curl -sSL -o ./openlogic-openjdk-21.0.4+7-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/21.0.4+7/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz
-
-RUN mkdir -p ${JAVA_HOME_8_X64} ${JAVA_HOME_21_X64} \
+  && curl -sSL -o ./openlogic-openjdk-21.0.4+7-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/21.0.4+7/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz \
+  && mkdir -p ${JAVA_HOME_8_X64} ${JAVA_HOME_21_X64} \
   && tar -xzf ./openlogic-openjdk-8u422-b05-linux-x64.tar.gz -C ${JAVA_HOME_8_X64} --strip-components=1 \
   && tar -xzf ./openlogic-openjdk-21.0.4+7-linux-x64.tar.gz -C ${JAVA_HOME_21_X64} --strip-components=1 \
   && rm ./*.tar.gz
